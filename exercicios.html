@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <script>try { if (localStorage.getItem("lv-tema") === "claro") document.documentElement.dataset.tema = "claro"; } catch (e) {}</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exercícios — Lançamento Vertical</title>
+  <meta name="description" content="Exercícios de lançamento vertical em três níveis, com dicas, resolução passo a passo e o Newton.">
+  <link rel="preload" href="vendor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2308090a'/%3E%3Cellipse cx='16' cy='17' rx='11' ry='5' fill='none' stroke='%2362666d' stroke-width='1.2' transform='rotate(-28 16 17)'/%3E%3Ccircle cx='16' cy='12' r='4' fill='%23F3CA7A'/%3E%3C/svg%3E">
+</head>
+<body>
+  <div class="cosmos" id="cosmos" aria-hidden="true"></div>
+  <header class="app-topo fixo">
+    <a class="marca" href="index.html" aria-label="Lançamento Vertical">
+      <svg class="marca-simbolo" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="18" rx="12" ry="5.5" transform="rotate(-28 16 18)"/><circle cx="16" cy="12" r="4.2"/></svg>
+      <span>Lançamento Vertical</span>
+    </a>
+    <nav class="abas-app" aria-label="Seções">
+      <a href="index.html">Simulador</a>
+      <a href="teoria.html">Teoria</a>
+      <a href="exercicios.html" class="ativo" aria-current="page">Exercícios</a>
+    </nav>
+    <div class="app-topo-dir">
+      <button type="button" class="botao escuro pequeno" id="modo-turma" aria-pressed="false" title="Questão em tela grande, com cronômetro">Modo turma</button>
+      <a class="botao claro pequeno" href="index.html">Abrir simulador</a>
+    </div>
+  </header>
+
+  <main class="pagina">
+    <header class="pagina-heroi compacto">
+      <p class="sobrancelha">F Í S I C A &nbsp;/&nbsp; M E C Â N I C A</p>
+      <h1 id="titulo">Grandezas físicas. <span>Quais delas o lançamento vertical usa?</span></h1>
+    </header>
+
+    <div class="exercicio">
+      <div>
+        <div class="etapas" role="tablist" aria-label="Etapas">
+          <button type="button" class="etapa ativo" id="etapa-1" role="tab">1 · GRANDEZAS</button>
+          <button type="button" class="etapa" id="etapa-2" role="tab">2 · DESAFIOS</button>
+        </div>
+
+        <!-- Etapa 1: grandezas físicas (do sketch original) -->
+        <section id="tela-grandezas">
+          <p class="suave">Selecione as grandezas utilizadas no lançamento vertical.</p>
+          <div class="opcoes" id="opcoes"></div>
+          <div id="feedback-grandezas" aria-live="polite"></div>
+          <div class="acoes">
+            <button type="button" class="botao claro" id="checar">Checar respostas</button>
+            <button type="button" class="botao escuro" id="ir-desafio" hidden>Ir para os desafios →</button>
+          </div>
+        </section>
+
+        <!-- Etapa 2: desafios gerados pelo motor físico -->
+        <section id="tela-desafio" hidden>
+          <div class="seletor">
+            <div class="segmentado" role="group" aria-label="Nível" id="niveis">
+              <button type="button" data-nivel="basico" class="ativo">Básico</button>
+              <button type="button" data-nivel="intermediario">Intermediário</button>
+              <button type="button" data-nivel="avancado">Avançado</button>
+            </div>
+            <div class="tipos" id="tipos" role="group" aria-label="Tipo de exercício"></div>
+          </div>
+
+          <article class="enunciado">
+            <div class="enunciado-topo"><span id="ex-numero" class="mono"></span><span id="ex-tipo"></span><span class="selo" id="ex-nivel"></span></div>
+            <p id="enunciado"></p>
+          </article>
+          <div class="dados" id="dados"></div>
+
+          <div class="resposta-linha">
+            <label for="resposta" id="pergunta">Sua resposta</label>
+            <span class="campo-num"><input id="resposta" type="text" inputmode="decimal" autocomplete="off" maxlength="16" placeholder="0,00"><span id="unidade">m</span></span>
+            <button type="button" class="botao claro" id="verificar">Verificar</button>
+            <span class="nota" style="margin:0">Arredonde só no final, com duas casas decimais.</span>
+          </div>
+          <div id="feedback-desafio" aria-live="polite"></div>
+
+          <div class="turma" id="turma" hidden>
+            <div class="cronometro"><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="19"/><circle cx="22" cy="22" r="19" id="cron-arco"/></svg><span id="cron-texto" class="mono">60</span></div>
+            <button type="button" class="botao escuro" id="cron-iniciar">Iniciar cronômetro</button>
+            <button type="button" class="botao claro" id="revelar">Revelar resposta</button>
+          </div>
+
+          <ol class="dicas" id="dicas"></ol>
+
+          <div class="acoes">
+            <button type="button" class="botao escuro" id="dica">Pedir dica</button>
+            <button type="button" class="botao escuro" id="mostrar-resolucao">Mostrar resolução</button>
+            <button type="button" class="botao claro" id="novo">Próximo exercício →</button>
+            <a class="botao escuro" id="ver-simulador" href="index.html">Ver no simulador</a>
+          </div>
+
+          <div class="resolucao" id="resolucao" hidden></div>
+        </section>
+      </div>
+
+      <aside class="palco-newton" aria-label="Newton e placar">
+        <div class="newton-canvas" id="newton"></div>
+        <p id="fala-newton">Escolha com calma. Eu fico de olho.</p>
+        <dl class="placar" id="placar">
+          <div><dt>PONTOS</dt><dd id="pl-pontos">0</dd></div>
+          <div><dt>ACERTOS</dt><dd id="pl-acertos">0/0</dd></div>
+          <div><dt>SEQUÊNCIA</dt><dd id="pl-sequencia">0</dd></div>
+        </dl>
+        <p class="nota">3 pontos sem dica, 2 com uma dica, 1 com duas. Ver a resolução não pontua.</p>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="rodape">
+    <span>Lançamento Vertical · projeto acadêmico baseado no sketch original em Processing</span>
+    <span class="mono">v(t) = v<sub>0</sub> − gt</span>
+  </footer>
+
+  <script src="vendor/p5.min.js"></script>
+  <script src="vendor/katex/katex.min.js"></script>
+  <script src="vendor/katex/contrib/auto-render.min.js"></script>
+  <script type="module" src="js/exercicios.js"></script>
+</body>
+</html>

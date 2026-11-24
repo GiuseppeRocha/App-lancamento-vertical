@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <script>try { if (localStorage.getItem("lv-tema") === "claro") document.documentElement.dataset.tema = "claro"; } catch (e) {}</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Teoria do Lançamento Vertical</title>
+  <meta name="description" content="Fundamentação matemática do lançamento vertical: equações horárias, altura máxima, inversão do movimento e exemplos resolvidos.">
+  <link rel="preload" href="vendor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2308090a'/%3E%3Cellipse cx='16' cy='17' rx='11' ry='5' fill='none' stroke='%2362666d' stroke-width='1.2' transform='rotate(-28 16 17)'/%3E%3Ccircle cx='16' cy='12' r='4' fill='%23F3CA7A'/%3E%3C/svg%3E">
+</head>
+<body>
+  <div class="cosmos" id="cosmos" aria-hidden="true"></div>
+  <header class="app-topo fixo">
+      <a class="marca" href="index.html" aria-label="Lançamento Vertical">
+        <svg class="marca-simbolo" viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="18" rx="12" ry="5.5" transform="rotate(-28 16 18)"/><circle cx="16" cy="12" r="4.2"/></svg>
+        <span>Lançamento Vertical</span>
+      </a>
+      <nav class="abas-app" aria-label="Seções">
+        <a href="index.html">Simulador</a>
+        <a href="teoria.html" class="ativo" aria-current="page">Teoria</a>
+        <a href="exercicios.html">Exercícios</a>
+      </nav>
+      <div class="app-topo-dir"><a class="botao claro pequeno" href="index.html">Abrir simulador</a></div>
+  </header>
+  <div class="progresso-leitura" aria-hidden="true"><span id="progresso-leitura"></span></div>
+
+  <main class="pagina">
+    <header class="pagina-heroi">
+      <p class="sobrancelha revelar" style="--d:0ms">F U N D A M E N T A Ç Ã O &nbsp;/&nbsp; T E O R I A</p>
+      <h1 class="revelar" style="--d:80ms">A matemática do lançamento. <span>Um MRUV, do ápice ao impacto.</span></h1>
+      <p class="revelar" style="--d:160ms">Equações horárias, altura máxima, inversão do sentido e resistência do ar. Os exemplos são resolvidos pelo mesmo motor físico do simulador.</p>
+    </header>
+
+    <div class="teoria">
+      <nav class="sumario" aria-label="Sumário">
+      <a href="#definicao">Definição</a>
+      <a href="#equacoes">Equações horárias</a>
+      <a href="#variaveis">Variáveis</a>
+      <a href="#relacao">Posição, velocidade e aceleração</a>
+      <a href="#altura-maxima">Altura máxima</a>
+      <a href="#inversao">Inversão do sentido</a>
+      <a href="#tempo-total">Tempo total</a>
+      <a href="#arrasto">Resistência do ar</a>
+      <a href="#exemplos">Exemplos resolvidos</a>
+        <a href="#resumo">Resumo</a>
+    </nav>
+      <article class="artigo">
+    <section id="definicao">
+      <h2><span class="fig">§ 01</span>Definição do movimento</h2>
+      <p>
+        Lançamento vertical é o movimento de um corpo arremessado na direção vertical, para cima ou para baixo,
+        sob a ação exclusiva da gravidade. Desprezando a resistência do ar, a única força que atua é o peso
+        \(\vec P = m\vec g\). Pela segunda lei de Newton, a aceleração é constante e igual a \(\vec g\),
+        independentemente da massa. Por isso o movimento é um <strong>MRUV</strong>
+        (movimento retilíneo uniformemente variado).
+      </p>
+      <p>
+        Adotamos o eixo \(y\) vertical, com sentido <strong>positivo para cima</strong> e origem no solo.
+        Com essa convenção, a aceleração vale \(a = -g\), em que \(g\) é o módulo da aceleração gravitacional.
+      </p>
+          <aside class="destaque ideia"><span>IDEIA-CHAVE</span><p>Sem resistência do ar, todos os corpos caem com a mesma aceleração. Uma pena e uma bola de chumbo lançadas com a mesma velocidade sobem até a mesma altura no vácuo.</p></aside>
+      <div class="checagem" data-checagem="massa"></div>
+    </section>
+
+    <section id="equacoes">
+      <h2><span class="fig">§ 02</span>Equações horárias</h2>
+      <div class="equacao"><div class="rotulo">Posição</div>$$y(t) = y_0 + v_0\,t - \frac{g\,t^2}{2}$$</div>
+      <div class="equacao"><div class="rotulo">Velocidade</div>$$v(t) = v_0 - g\,t$$</div>
+      <div class="equacao"><div class="rotulo">Aceleração</div>$$a(t) = -g$$</div>
+      <div class="equacao"><div class="rotulo">Equação de Torricelli (independente do tempo)</div>$$v^2 = v_0^2 - 2g\,(y - y_0)$$</div>
+          <div class="lab" data-lab="equacao"></div>
+      <div class="checagem" data-checagem="velocidade"></div>
+    </section>
+
+    <section id="variaveis">
+      <h2><span class="fig">§ 03</span>Significado de cada variável</h2>
+      <div>
+        <table class="variaveis">
+          <tbody>
+            <tr><td>\(t\)</td><td>Tempo decorrido desde o lançamento, em segundos (s).</td></tr>
+            <tr><td>\(y(t)\)</td><td>Altura do corpo em relação ao solo no instante \(t\), em metros (m).</td></tr>
+            <tr><td>\(y_0\)</td><td>Altura inicial, de onde o corpo é lançado (m).</td></tr>
+            <tr><td>\(v_0\)</td><td>Velocidade inicial (m/s): positiva para cima, negativa para baixo.</td></tr>
+            <tr><td>\(v(t)\)</td><td>Velocidade no instante \(t\) (m/s). O sinal indica o sentido do movimento.</td></tr>
+            <tr><td>\(g\)</td><td>Módulo da aceleração gravitacional (m/s²). Terra ≈ 9,81; Lua ≈ 1,62; Marte ≈ 3,71.</td></tr>
+            <tr><td>\(a(t)\)</td><td>Aceleração (m/s²). No modelo ideal é constante e igual a \(-g\).</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="relacao">
+      <h2><span class="fig">§ 04</span>Relação entre posição, velocidade e aceleração</h2>
+      <p>
+        A velocidade é a taxa de variação da posição e a aceleração é a taxa de variação da velocidade:
+      </p>
+      <div class="equacao">$$v(t) = \frac{dy}{dt}, \qquad a(t) = \frac{dv}{dt} = \frac{d^2y}{dt^2}$$</div>
+      <p>
+        Integrando \(a = -g\) duas vezes, com as condições iniciais \(v(0) = v_0\) e \(y(0) = y_0\), obtemos as equações
+        horárias da seção 2. Graficamente: \(y(t)\) é uma parábola com concavidade para baixo, \(v(t)\) é uma reta com
+        inclinação \(-g\) e \(a(t)\) é uma reta horizontal. A inclinação do gráfico de posição em cada instante é a
+        velocidade, e a inclinação do gráfico de velocidade é a aceleração.
+      </p>
+    </section>
+
+    <section id="altura-maxima">
+      <h2><span class="fig">§ 05</span>Altura máxima</h2>
+      <p>
+        No ponto mais alto da trajetória a velocidade se anula. Fazendo \(v(t_s) = 0\):
+      </p>
+      <div class="equacao">$$0 = v_0 - g\,t_s \;\Rightarrow\; t_s = \frac{v_0}{g}$$</div>
+      <p>Substituindo \(t_s\) na equação da posição (ou usando Torricelli com \(v = 0\)):</p>
+      <div class="equacao">$$H_{\text{máx}} = y_0 + \frac{v_0^2}{2g}$$</div>
+      <p>
+        Esse resultado só vale para \(v_0 &gt; 0\). Se o corpo é lançado para baixo ou abandonado (\(v_0 \le 0\)),
+        a maior altura é a própria altura inicial.
+      </p>
+          <aside class="destaque erro"><span>ERRO COMUM</span><p>Achar que dobrar a velocidade dobra a altura. Como \(H \propto v_0^2\), dobrar v₀ quadruplica a subida.</p></aside>
+      <div class="checagem" data-checagem="dobro"></div>
+    </section>
+
+    <section id="inversao">
+      <h2><span class="fig">§ 06</span>Inversão do sentido do movimento</h2>
+      <p>
+        Durante a subida, \(v &gt; 0\) e \(a &lt; 0\): velocidade e aceleração têm sentidos opostos, então o movimento é
+        <strong>retardado</strong> e a velocidade diminui em \(g\) metros por segundo a cada segundo. Em \(t = t_s\),
+        a velocidade é zero, mas a aceleração continua sendo \(-g\). O corpo está instantaneamente parado, não em
+        equilíbrio. Por isso ele não fica no alto: logo depois, \(v &lt; 0\) e o movimento passa a ser
+        <strong>acelerado</strong>, porque velocidade e aceleração têm o mesmo sentido.
+      </p>
+      <p>
+        No modelo ideal a trajetória é simétrica: o tempo de subida até \(H_{\text{máx}}\) é igual ao tempo de descida
+        de volta à altura \(y_0\), e o corpo passa por \(y_0\) com velocidade \(-v_0\).
+      </p>
+          <div class="lab" data-lab="vetores"></div>
+      <aside class="destaque erro"><span>ERRO COMUM</span><p>Dizer que no ponto mais alto “a aceleração é zero”. Quem é zero é a velocidade; a aceleração continua sendo −g o tempo todo.</p></aside>
+      <div class="checagem" data-checagem="apice"></div>
+    </section>
+
+    <section id="tempo-total">
+      <h2><span class="fig">§ 07</span>Tempo total de movimento</h2>
+      <p>O corpo atinge o solo quando \(y(t) = 0\), o que leva à equação do segundo grau:</p>
+      <div class="equacao">$$\frac{g}{2}\,t^2 - v_0\,t - y_0 = 0 \;\Rightarrow\; t_{\text{total}} = \frac{v_0 + \sqrt{v_0^2 + 2g\,y_0}}{g}$$</div>
+      <p>
+        Apenas a raiz positiva tem significado físico. Casos especiais tratados pelo simulador: se \(g = 0\), o movimento
+        é uniforme e o corpo só volta ao solo quando \(v_0 &lt; 0\), com \(t = -y_0/v_0\); se \(y_0 = 0\) e \(v_0 \le 0\),
+        não há movimento.
+      </p>
+          <div class="checagem" data-checagem="raiz"></div>
+    </section>
+
+    <section id="arrasto">
+      <h2><span class="fig">§ 08</span>Resistência do ar (modelo com arrasto)</h2>
+      <p>
+        Em velocidades moderadas, a força de resistência do ar sobre um corpo é aproximadamente proporcional ao quadrado
+        da velocidade e sempre oposta ao movimento:
+      </p>
+      <div class="equacao">$$F_{\text{arrasto}} = -\tfrac{1}{2}\,\rho\,C_d\,A\;v\,|v|$$</div>
+      <p>
+        em que \(\rho\) é a densidade do ar, \(C_d\) é o coeficiente de arrasto e \(A\) é a área frontal. A segunda lei de
+        Newton fornece:
+      </p>
+      <div class="equacao">$$a = -g - \frac{k}{m}\,v\,|v|, \qquad k = \tfrac{1}{2}\rho\,C_d\,A$$</div>
+      <p>
+        A aceleração deixa de ser constante e passa a depender da massa: na subida, arrasto e peso apontam para baixo
+        (\(|a| &gt; g\)); na descida, o arrasto aponta para cima (\(|a| &lt; g\)). Em quedas longas, a velocidade tende
+        à velocidade terminal \(v_t = \sqrt{mg/k}\). O simulador resolve essa equação numericamente pelo método de
+        Runge–Kutta de 4ª ordem, com passo adaptativo.
+      </p>
+      <p id="exemplo-terminal"></p>
+          <div class="lab" data-lab="arrasto"></div>
+      <div class="checagem" data-checagem="arrasto"></div>
+    </section>
+
+    <section id="exemplos">
+      <h2><span class="fig">§ 09</span>Exemplos resolvidos</h2>
+      <p class="suave">Os valores são calculados pelo mesmo motor físico do simulador. Tente resolver antes de revelar cada passo.</p>
+      <div id="lista-exemplos"></div>
+    </section>
+
+    <section id="resumo">
+      <h2><span class="fig">§ 10</span>Resumo</h2>
+      <div class="resumo-grade">
+        <div class="resumo-cartao"><span>ACELERAÇÃO</span><p>Constante e igual a \(-g\), na subida, no ápice e na descida.</p></div>
+        <div class="resumo-cartao"><span>VELOCIDADE</span><p>\(v = v_0 - gt\): diminui na subida, é zero no ápice e fica negativa na descida.</p></div>
+        <div class="resumo-cartao"><span>ALTURA MÁXIMA</span><p>\(H_{\text{máx}} = y_0 + \dfrac{v_0^2}{2g}\), atingida em \(t_s = v_0/g\).</p></div>
+        <div class="resumo-cartao"><span>ENERGIA</span><p>No vácuo, \(E_c + E_p\) é constante. Com ar, parte dela é dissipada.</p></div>
+      </div>
+      <div class="proximos">
+        <a class="botao claro" href="exercicios.html">Praticar com exercícios →</a>
+        <a class="botao escuro" href="index.html">Abrir o simulador</a>
+      </div>
+    </section>
+      </article>
+    </div>
+  </main>
+
+  <footer class="rodape">
+    <span>Lançamento Vertical · projeto acadêmico baseado no sketch original em Processing</span>
+    <span class="mono">a(t) = −g</span>
+  </footer>
+
+  <script src="vendor/p5.min.js"></script>
+  <script src="vendor/katex/katex.min.js"></script>
+  <script src="vendor/katex/contrib/auto-render.min.js"></script>
+  <script type="module" src="js/teoria.js"></script>
+</body>
+</html>
